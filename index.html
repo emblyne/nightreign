@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Emblyne's Nightreign Companion</h1>
-  <p>v1.0 Last Updated 6.24.25</p>
+  <p>v1.1 Last Updated 6.24.25</p>
 
   <div id="page-layout">
     <!-- Expedition Selection -->
@@ -47,9 +47,62 @@
     <!-- Boss Checklist -->
     <div id="boss-checklist">
       <h2>Boss Checklist</h2>
-      <div class="checklist-placeholder">
-        <p>This box will track boss-related objectives and checklist items during your expedition.</p>
-      </div>
+      <div id="boss-container">
+      <p>Loading boss list...</p>
+    </div>
+    <script>
+      async function loadBossChecklist() {
+        const container = document.getElementById("boss-container");
+        try {
+          const res = await fetch("bosses.json");
+          const data = await res.json();
+          container.innerHTML = "";
+
+          Object.entries(data).forEach(([category, bosses]) => {
+            const section = document.createElement("details");
+            section.className = "boss-category";
+            section.open = true;
+
+            const summary = document.createElement("summary");
+            summary.textContent = category;
+            section.appendChild(summary);
+
+            const list = document.createElement("div");
+            list.className = "boss-list";
+
+            bosses.forEach(boss => {
+              const id = `boss-${category.toLowerCase().replace(/\s+/g, '-')}-${boss.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+
+              const label = document.createElement("label");
+              label.className = "boss-entry";
+
+              const checkbox = document.createElement("input");
+              checkbox.type = "checkbox";
+              checkbox.id = id;
+              checkbox.checked = localStorage.getItem(id) === "true";
+              checkbox.onchange = () => {
+                localStorage.setItem(id, checkbox.checked);
+              };
+
+              const span = document.createElement("span");
+              span.textContent = boss;
+
+              label.appendChild(checkbox);
+              label.appendChild(span);
+              list.appendChild(label);
+            });
+
+            section.appendChild(list);
+            container.appendChild(section);
+          });
+        } catch (err) {
+          container.innerHTML = "<p>Failed to load boss data.</p>";
+          console.error("Error loading bosses.json:", err);
+        }
+      }
+
+      loadBossChecklist();
+    </script>
     </div>
   </div>
 
