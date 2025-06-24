@@ -9,12 +9,14 @@
   <h1>Emblyne's Nightreign Companion</h1>
   <p>v1.0 Last Updated 6.24.25</p>
 
-  <div id="main-container">
+  <div id="page-layout">
     <!-- Expedition Selection -->
     <div id="expedition-ui">
       <h2>Expedition Selection</h2>
-      <div id="expedition-list"></div>
-      <div id="expedition-details"></div>
+      <div id="expedition-flex">
+        <div id="expedition-list"></div>
+        <div id="expedition-details"></div>
+      </div>
     </div>
 
     <!-- Storm Timer -->
@@ -35,120 +37,34 @@
             <div class="phase-group" id="group-4"></div>
           </div>
         </div>
-
         <div id="vertical-divider"></div>
-
         <div id="right-ui">
           <p id="time-remaining" class="big-timer">--:--</p>
         </div>
+      </div>
+    </div>
+
+    <!-- Boss Checklist -->
+    <div id="boss-checklist">
+      <h2>Boss Checklist</h2>
+      <div class="checklist-placeholder">
+        <p>This box will track boss-related objectives and checklist items during your expedition.</p>
       </div>
     </div>
   </div>
 
   <script>
     const nightlordsData = [
-      {
-        "Expedition": "Tricephalos",
-        "Night Lord": "Gladius",
-        "Weakness": "Holy",
-        "Fire": -0.5,
-        "Pierce": 0.1,
-        "Holy": 0.35,
-      },
-      {
-        "Expedition": "Gaping Jaw",
-        "Night Lord": "Adel",
-        "Weakness": "Poison",
-        "Fire": -0.2,
-        "Lightning": -0.5,
-      },
-      {
-        "Expedition": "Sentient Pest",
-        "Night Lord": "Gnoster (Moth)",
-        "Weakness": "Fire",
-        "Standard": 0.15,
-        "Slash": 0.25,
-        "Strike": 0.15,
-        "Pierce": 0.25,
-        "Magic": -0.50,
-        "Fire": 0.40,
-        "Lightning": -0.10,
-        "Holy": -0.10,
-      },
-      {
-        "Expedition": "Sentient Pest",
-        "Night Lord": "Gnoster (Scorpion)",
-        "Weakness": "Fire",
-        "Standard": -0.10,
-        "Slash": -0.20,
-        "Strike": 0.20,
-        "Pierce": 0.10,
-        "Magic": -0.10,
-        "Fire": 0.35,
-        "Lightning": -0.10,
-        "Holy": -0.10,
-      },
-      {
-        "Expedition": "Augur",
-        "Night Lord": "Maris",
-        "Weakness": "Lightning",
-        "Standard": 0.15,
-        "Strike": -0.20,
-        "Pierce": -0.10,
-        "Magic": -0.20,
-        "Fire": -0.50,
-        "Lightning": 0.40,
-        "Holy": -0.15,
-      },
-      {
-        "Expedition": "Equilibrious Beast",
-        "Night Lord": "Libra",
-        "Weakness": "Madness",
-        "Standard": 0.10,
-        "Magic": -0.20,
-        "Fire": 0.20,
-        "Holy": 0.35,
-      },
-      {
-        "Expedition": "Darkdrift Knight",
-        "Night Lord": "Fulghor",
-        "Weakness": "Lightning",
-        "Fire": 0.20,
-        "Holy": -0.30,
-      },
-      {
-        "Expedition": "Fissure in the Fog",
-        "Night Lord": "Caligo",
-        "Weakness": "Fire",
-        "Standard": -0.15,
-        "Strike": 0.15,
-        "Pierce": -0.10,
-        "Magic": -0.20,
-        "Fire": 0.35,
-        "Lightning": -0.20,
-        "Holy": -0.20,
-      },
-      {
-        "Expedition": "Night Aspect",
-        "Night Lord": "Heolstor Phase 1",
-        "Weakness": "Holy",
-        "Standard": 0.15,
-        "Slash": -0.10,
-        "Pierce": 0.10,
-        "Fire": 0.20,
-        "Holy": 0.35,
-
-      },
-      {
-        "Expedition": "Night Aspect",
-        "Night Lord": "Heolstor Phase 2",
-        "Weakness": "Fire",
-        "Standard": -0.10,
-        "Strike": 0.10,
-        "Pierce": 0.15,
-        "Fire": 0.20,
-        "Holy": 0.20,
-      }
+      { "Expedition": "Tricephalos", "Night Lord": "Gladius", "Weakness": "Holy", "Fire": -0.5, "Pierce": 0.1, "Holy": 0.35 },
+      { "Expedition": "Gaping Jaw", "Night Lord": "Adel", "Weakness": "Poison", "Fire": -0.2, "Lightning": -0.5 },
+      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster (Moth)", "Weakness": "Fire", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10 },
+      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster (Shears)", "Weakness": "Fire", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10 },
+      { "Expedition": "Augur", "Night Lord": "Maris", "Weakness": "Lightning", "Standard": 0.15, "Strike": -0.20, "Pierce": -0.10, "Magic": -0.20, "Fire": -0.50, "Lightning": 0.40, "Holy": -0.15 },
+      { "Expedition": "Equilibrious Beast", "Night Lord": "Libra", "Weakness": "Madness", "Standard": 0.10, "Magic": -0.20, "Fire": 0.20, "Holy": 0.35 },
+      { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor", "Weakness": "Lightning", "Fire": 0.20, "Holy": -0.30 },
+      { "Expedition": "Fissure in the Fog", "Night Lord": "Caligo", "Weakness": "Fire", "Standard": -0.15, "Strike": 0.15, "Pierce": -0.10, "Magic": -0.20, "Fire": 0.35, "Lightning": -0.20, "Holy": -0.20 },
+      { "Expedition": "Night Aspect", "Night Lord": "Heolstor Phase 1", "Weakness": "Holy", "Standard": 0.15, "Slash": -0.10, "Pierce": 0.10, "Fire": 0.20, "Holy": 0.35 },
+      { "Expedition": "Night Aspect", "Night Lord": "Heolstor Phase 2", "Weakness": "Fire", "Standard": -0.10, "Strike": 0.10, "Pierce": 0.15, "Fire": 0.20, "Holy": 0.20 }
     ];
 
     const expeditionListEl = document.getElementById('expedition-list');
@@ -188,8 +104,10 @@
           effectiveKeys.forEach(key => {
             const val = parseFloat(nl[key]);
             if (!isNaN(val)) {
-              if (val > 0) effective.push(key);
-              else if (val < 0) ineffective.push(key);
+              const percent = `${(val * 100).toFixed(0)}%`;
+              const formatted = `${key} (${val > 0 ? '+' : ''}${percent})`;
+              if (val > 0) effective.push(formatted);
+              else if (val < 0) ineffective.push(formatted);
             }
           });
 
@@ -211,7 +129,6 @@
       expeditionListEl.appendChild(el);
     });
 
-    // Storm Timer Logic
     const phases = [
       { name: "Begin Run", duration: 270 },
       { name: "Day 1 Initial Storm Closure", duration: 180 },
