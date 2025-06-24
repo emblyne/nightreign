@@ -61,7 +61,7 @@
           Object.entries(data).forEach(([category, bosses]) => {
             const section = document.createElement("details");
             section.className = "boss-category";
-            section.open = true;
+            section.open = false;
 
             const summary = document.createElement("summary");
             summary.textContent = category;
