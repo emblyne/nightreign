@@ -6,7 +6,333 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Emblyne's Nightreign Companion (WIP)</h1>
-  <p>(html index test)</p>
+  <h1>Emblyne's Nightreign Companion</h1>
+  <p>v1.0 Last Updated 6.24.25</p>
+
+  <div id="main-container">
+    <!-- Expedition Selection -->
+    <div id="expedition-ui">
+      <h2>Expedition Selection</h2>
+      <div id="expedition-list"></div>
+      <div id="expedition-details"></div>
+    </div>
+
+    <!-- Storm Timer -->
+    <div id="storm-timer">
+      <h2>Expedition Clock</h2>
+      <div id="timer-container">
+        <div id="left-ui">
+          <p id="current-phase">Ready</p>
+          <div id="controls">
+            <button id="start-btn" class="green" onclick="startRun()">Start Run</button>
+            <button id="boss-btn" class="yellow" onclick="startNextDay()" disabled>Boss Defeated</button>
+            <button id="reset-btn" class="red" onclick="resetTimer()">Reset</button>
+          </div>
+          <div id="phase-list">
+            <div class="phase-group" id="group-1"></div>
+            <div class="phase-group" id="group-2"></div>
+            <div class="phase-group" id="group-3"></div>
+            <div class="phase-group" id="group-4"></div>
+          </div>
+        </div>
+
+        <div id="vertical-divider"></div>
+
+        <div id="right-ui">
+          <p id="time-remaining" class="big-timer">--:--</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const nightlordsData = [
+      {
+        "Expedition": "Tricephalos",
+        "Night Lord": "Gladius",
+        "Weakness": "Holy",
+        "Fire": -0.5,
+        "Pierce": 0.1,
+        "Holy": 0.35,
+      },
+      {
+        "Expedition": "Gaping Jaw",
+        "Night Lord": "Adel",
+        "Weakness": "Poison",
+        "Fire": -0.2,
+        "Lightning": -0.5,
+      },
+      {
+        "Expedition": "Sentient Pest",
+        "Night Lord": "Gnoster (Moth)",
+        "Weakness": "Fire",
+        "Standard": 0.15,
+        "Slash": 0.25,
+        "Strike": 0.15,
+        "Pierce": 0.25,
+        "Magic": -0.50,
+        "Fire": 0.40,
+        "Lightning": -0.10,
+        "Holy": -0.10,
+      },
+      {
+        "Expedition": "Sentient Pest",
+        "Night Lord": "Gnoster (Scorpion)",
+        "Weakness": "Fire",
+        "Standard": -0.10,
+        "Slash": -0.20,
+        "Strike": 0.20,
+        "Pierce": 0.10,
+        "Magic": -0.10,
+        "Fire": 0.35,
+        "Lightning": -0.10,
+        "Holy": -0.10,
+      },
+      {
+        "Expedition": "Augur",
+        "Night Lord": "Maris",
+        "Weakness": "Lightning",
+        "Standard": 0.15,
+        "Strike": -0.20,
+        "Pierce": -0.10,
+        "Magic": -0.20,
+        "Fire": -0.50,
+        "Lightning": 0.40,
+        "Holy": -0.15,
+      },
+      {
+        "Expedition": "Equilibrious Beast",
+        "Night Lord": "Libra",
+        "Weakness": "Madness",
+        "Standard": 0.10,
+        "Magic": -0.20,
+        "Fire": 0.20,
+        "Holy": 0.35,
+      },
+      {
+        "Expedition": "Darkdrift Knight",
+        "Night Lord": "Fulghor",
+        "Weakness": "Lightning",
+        "Fire": 0.20,
+        "Holy": -0.30,
+      },
+      {
+        "Expedition": "Fissure in the Fog",
+        "Night Lord": "Caligo",
+        "Weakness": "Fire",
+        "Standard": -0.15,
+        "Strike": 0.15,
+        "Pierce": -0.10,
+        "Magic": -0.20,
+        "Fire": 0.35,
+        "Lightning": -0.20,
+        "Holy": -0.20,
+      },
+      {
+        "Expedition": "Night Aspect",
+        "Night Lord": "Heolstor Phase 1",
+        "Weakness": "Holy",
+        "Standard": 0.15,
+        "Slash": -0.10,
+        "Pierce": 0.10,
+        "Fire": 0.20,
+        "Holy": 0.35,
+
+      },
+      {
+        "Expedition": "Night Aspect",
+        "Night Lord": "Heolstor Phase 2",
+        "Weakness": "Fire",
+        "Standard": -0.10,
+        "Strike": 0.10,
+        "Pierce": 0.15,
+        "Fire": 0.20,
+        "Holy": 0.20,
+      }
+    ];
+
+    const expeditionListEl = document.getElementById('expedition-list');
+    const expeditionDetailsEl = document.getElementById('expedition-details');
+
+    const effectiveKeys = [
+      "Standard", "Slash", "Strike", "Pierce", "Magic",
+      "Fire", "Lightning", "Holy", "Poison", "Rot",
+      "Bleed", "Frostbite", "Sleep", "Madness"
+    ];
+
+    const expeditions = [...new Set(nightlordsData.map(e => e.Expedition))];
+    expeditions.forEach(exp => {
+      const el = document.createElement('div');
+      el.className = 'phase-entry';
+      el.innerText = exp;
+      el.onclick = () => {
+        const matches = nightlordsData.filter(e => e.Expedition === exp);
+        document.querySelectorAll('#expedition-list .phase-entry').forEach(e => e.classList.remove('active'));
+        el.classList.add('active');
+
+        expeditionDetailsEl.innerHTML = '';
+        matches.forEach(nl => {
+          const box = document.createElement('div');
+          box.className = 'expedition-placeholder';
+
+          const name = document.createElement('div');
+          name.className = 'nightlord-name';
+          name.innerHTML = `<strong>${nl["Night Lord"]}</strong>`;
+          box.appendChild(name);
+
+          const weakness = document.createElement('p');
+          weakness.innerHTML = `<strong>Primary Weakness:</strong> ${nl.Weakness || '—'}`;
+          box.appendChild(weakness);
+
+          const effective = [], ineffective = [];
+          effectiveKeys.forEach(key => {
+            const val = parseFloat(nl[key]);
+            if (!isNaN(val)) {
+              if (val > 0) effective.push(key);
+              else if (val < 0) ineffective.push(key);
+            }
+          });
+
+          if (effective.length > 0) {
+            const eff = document.createElement('p');
+            eff.innerHTML = `<span class="effective-label">Effective:</span> ${effective.join(', ')}`;
+            box.appendChild(eff);
+          }
+
+          if (ineffective.length > 0) {
+            const ineff = document.createElement('p');
+            ineff.innerHTML = `<span class="ineffective-label">Ineffective:</span> ${ineffective.join(', ')}`;
+            box.appendChild(ineff);
+          }
+
+          expeditionDetailsEl.appendChild(box);
+        });
+      };
+      expeditionListEl.appendChild(el);
+    });
+
+    // Storm Timer Logic
+    const phases = [
+      { name: "Begin Run", duration: 270 },
+      { name: "Day 1 Initial Storm Closure", duration: 180 },
+      { name: "Day 1 Explore Circle", duration: 210 },
+      { name: "Day 1 Final Storm Closure", duration: 180 },
+      { name: "Night 1 Boss Fight", duration: 0 },
+      { name: "Day 2 Explore Edges", duration: 270 },
+      { name: "Day 2 Initial Storm Closure", duration: 180 },
+      { name: "Day 2 Explore Circle", duration: 210 },
+      { name: "Day 2 Final Storm Closure", duration: 180 },
+      { name: "Night 2 Boss Fight", duration: 0 }
+    ];
+
+    let currentPhaseIndex = 0;
+    let timeLeft = 0;
+    let interval = null;
+
+    const currentPhaseEl = document.getElementById('current-phase');
+    const timeRemainingEl = document.getElementById('time-remaining');
+    const startBtn = document.getElementById('start-btn');
+    const bossBtn = document.getElementById('boss-btn');
+
+    const phaseGroupEls = [
+      document.getElementById('group-1'),
+      document.getElementById('group-2'),
+      document.getElementById('group-3'),
+      document.getElementById('group-4')
+    ];
+
+    function formatTime(seconds) {
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function renderPhaseList() {
+      phaseGroupEls.forEach(group => group.innerHTML = '');
+
+      phases.forEach((p, index) => {
+        const el = document.createElement("div");
+        el.className = "phase-entry";
+        el.innerText = p.name;
+        if (index === currentPhaseIndex) el.classList.add("active");
+        if (index < currentPhaseIndex) el.classList.add("complete");
+        el.onclick = () => jumpToPhase(index);
+
+        if (index <= 3) phaseGroupEls[0].appendChild(el);
+        else if (index === 4) phaseGroupEls[1].appendChild(el);
+        else if (index >= 5 && index <= 8) phaseGroupEls[2].appendChild(el);
+        else phaseGroupEls[3].appendChild(el);
+      });
+    }
+
+    function updateTimers() {
+      timeRemainingEl.innerText = formatTime(timeLeft);
+      timeRemainingEl.classList.toggle("critical", timeLeft <= 30 && timeLeft > 0);
+    }
+
+    function startRun() {
+      if (interval) return;
+      currentPhaseIndex = 0;
+      startPhase();
+    }
+
+    function startPhase() {
+      const phase = phases[currentPhaseIndex];
+      renderPhaseList();
+      currentPhaseEl.innerText = phase.name;
+
+      if (phase.duration === 0) {
+        timeLeft = 0;
+        updateTimers();
+        if (currentPhaseIndex === 4 || currentPhaseIndex === 9) {
+          bossBtn.disabled = false;
+        }
+        return;
+      }
+
+      timeLeft = phase.duration;
+      updateTimers();
+      interval = setInterval(() => {
+        timeLeft--;
+        updateTimers();
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          interval = null;
+          currentPhaseIndex++;
+          if (currentPhaseIndex < phases.length) {
+            startPhase();
+          }
+        }
+      }, 1000);
+    }
+
+    function startNextDay() {
+      bossBtn.disabled = true;
+      currentPhaseIndex++;
+      startPhase();
+    }
+
+    function resetTimer() {
+      clearInterval(interval);
+      interval = null;
+      currentPhaseIndex = 0;
+      timeLeft = 0;
+      bossBtn.disabled = true;
+      currentPhaseEl.innerText = "Ready";
+      timeRemainingEl.innerText = "--:--";
+      timeRemainingEl.classList.remove("critical");
+      renderPhaseList();
+    }
+
+    function jumpToPhase(index) {
+      clearInterval(interval);
+      interval = null;
+      currentPhaseIndex = index;
+      bossBtn.disabled = phases[currentPhaseIndex].duration === 0 ? false : true;
+      startPhase();
+    }
+
+    renderPhaseList();
+  </script>
 </body>
 </html>

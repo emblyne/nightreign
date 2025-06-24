@@ -1,10 +1,227 @@
 body {
-  background-color: #f0f0f0;
+  background-image: url('bg.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #2b263f;
   font-family: sans-serif;
   text-align: center;
   padding: 50px;
+  min-height: 100vh;
+  margin: 0;
+  color: white;
 }
 
 h1 {
-  color: darkblue;
+  color: white;
+}
+
+#main-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+#expedition-ui {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  min-width: 300px;
+  max-width: 300px;
+  text-align: center;
+}
+
+#expedition-ui h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+#expedition-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+}
+
+#expedition-details {
+  margin-top: 20px;
+}
+
+.expedition-placeholder {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  min-height: 100px;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.nightlord-name {
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 8px;
+}
+
+.effective-label {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.ineffective-label {
+  color: #ff6666;
+  font-weight: bold;
+}
+
+.phase-entry {
+  padding: 8px 16px;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+  text-align: center;
+  width: 100%;
+  max-width: 280px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.phase-entry:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.phase-entry.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 4px solid #7700ff;
+}
+
+.phase-entry.complete {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+#storm-timer {
+  background-color: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  max-width: 900px;
+  width: 100%;
+  text-align: left;
+}
+
+#storm-timer h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+#timer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+#left-ui {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#right-ui {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#vertical-divider {
+  width: 4px;
+  background: linear-gradient(to bottom, #7700ff, #2b263f);
+  border-radius: 2px;
+  margin: 0 10px;
+}
+
+#current-phase {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.big-timer {
+  font-size: clamp(40px, 10vw, 100px);
+  font-weight: bold;
+  color: #00ff88;
+  transition: color 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.big-timer.critical {
+  color: #ff3333;
+}
+
+#controls {
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.green {
+  background-color: #4CAF50;
+  color: white;
+}
+
+button.red {
+  background-color: #c0392b;
+  color: white;
+}
+
+button.yellow {
+  background-color: #f1c40f;
+  color: black;
+}
+
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+#phase-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+}
+
+.phase-group {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
