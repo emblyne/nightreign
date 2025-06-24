@@ -1,2 +1,2 @@
 # nightreign
-Companion for Elden Ring: Nightreign
+Personal Companion for Elden Ring: Nightreign
