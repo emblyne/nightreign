@@ -157,7 +157,7 @@
             const val = parseFloat(nl[key]);
             if (!isNaN(val)) {
               const percent = `${(val * 100).toFixed(0)}%`;
-              const iconUrl = `/images/${key.toLowerCase()}.png`;
+              const iconUrl = `./images/${key.toLowerCase()}.png`;
               const formatted = `<img src="${iconUrl}" class="icon" alt="${key}"> ${key} (${val > 0 ? '+' : ''}${percent})`;
               if (val > 0) effective.push(formatted);
               else if (val < 0) ineffective.push(formatted);
