@@ -13,6 +13,13 @@
     <!-- Expedition Selection -->
     <div id="expedition-ui">
       <h2>Expedition Selection</h2>
+      <div class="switch-wrapper">
+        <span class="switch-label">Everdark Sovereigns</span>
+        <label class="switch">
+          <input type="checkbox" id="everdark-toggle">
+          <span class="slider"></span>
+        </label>
+      </div>
       <div id="expedition-flex">
         <div id="expedition-list"></div>
         <div id="expedition-details"></div>
@@ -54,143 +61,90 @@
   </div>
 
   <script>
-    const normalizeName = (name) =>
-      name.toLowerCase()
-          .replace(/\s*\(.*?\)/g, '')
-          .replace(/[^a-z0-9]/g, '')
-          .replace(/-+/g, '')
-          .replace(/^-|-$/g, '');
-
-    async function loadBossChecklist() {
-      const container = document.getElementById("boss-container");
-      try {
-        const res = await fetch("bosses.json");
-        const data = await res.json();
-        container.innerHTML = "";
-
-        Object.entries(data).forEach(([category, bosses]) => {
-          const section = document.createElement("details");
-          section.className = "boss-category";
-          section.open = false;
-
-          const summary = document.createElement("summary");
-          summary.textContent = category;
-          section.appendChild(summary);
-
-          const list = document.createElement("div");
-          list.className = "boss-list";
-
-          bosses.forEach(boss => {
-            const id = `boss-${category.toLowerCase().replace(/\s+/g, '-')}-${boss.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
-            const label = document.createElement("label");
-            label.className = "boss-entry";
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.id = id;
-            checkbox.checked = localStorage.getItem(id) === "true";
-            checkbox.onchange = () => {
-              localStorage.setItem(id, checkbox.checked);
-            };
-
-            const span = document.createElement("span");
-            span.textContent = boss;
-
-            label.appendChild(checkbox);
-            label.appendChild(span);
-            list.appendChild(label);
-          });
-
-          section.appendChild(list);
-          container.appendChild(section);
-        });
-      } catch (err) {
-        container.innerHTML = "<p>Failed to load boss data.</p>";
-        console.error("Error loading bosses.json:", err);
-      }
-    }
-
-    loadBossChecklist();
-
     const nightlordsData = [
-  { "Expedition": "Tricephalos", "Night Lord": "Gladius, Beast of Night", "Weakness": "Holy", "Fire": -0.5, "Pierce": 0.1, "Holy": 0.35 },
-  { "Expedition": "Gaping Jaw", "Night Lord": "Adel, Baron of Night", "Weakness": "Poison", "Fire": -0.2, "Lightning": -0.5 },
-  { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Moth)", "Weakness": "Fire", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10 },
-  { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Shears)", "Weakness": "Fire", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10 },
-  { "Expedition": "Augur", "Night Lord": "Maris, Fathom of Night", "Weakness": "Lightning", "Slash": 0.15, "Strike": -0.20, "Pierce": -0.10, "Magic": -0.20, "Fire": -0.50, "Lightning": 0.40, "Holy": -0.15 },
-  { "Expedition": "Equilibrious Beast", "Night Lord": "Libra, Creature of Night", "Weakness": "Madness", "Slash": 0.10, "Magic": -0.20, "Fire": 0.20, "Holy": 0.35 },
-  { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor, Champion of Nightglow", "Weakness": "Lightning", "Lightning": 0.20, "Holy": -0.30 },
-  { "Expedition": "Fissure in the Fog", "Night Lord": "Caligo, Miasma of Night", "Weakness": "Fire", "Slash": -0.15, "Strike": 0.15, "Pierce": -0.10, "Magic": -0.20, "Fire": 0.35, "Lightning": -0.20, "Holy": -0.20 },
-  { "Expedition": "Night Aspect", "Night Lord": "The Shape of Night", "Weakness": "Holy", "Slash": 0.15, "Strike": -0.10, "Pierce": 0.10, "Fire": 0.20, "Holy": 0.35 },
-  { "Expedition": "Night Aspect", "Night Lord": "Heolstor the Nightlord", "Weakness": "Fire", "Slash": -0.10, "Strike": 0.10, "Pierce": 0.15, "Fire": 0.20, "Holy": 0.20 }
-];;
+      { "Expedition": "Tricephalos", "Night Lord": "Gladius, Beast of Night", "Weakness": "Holy", "Fire": -0.5, "Pierce": 0.1, "Holy": 0.35, "Everdark": false },
+      { "Expedition": "Gaping Jaw", "Night Lord": "Adel, Baron of Night", "Weakness": "Poison", "Fire": -0.2, "Lightning": -0.5, "Everdark": false },
+      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Moth)", "Weakness": "Fire", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10, "Everdark": false },
+      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Shears)", "Weakness": "Fire", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10, "Everdark": false },
+      { "Expedition": "Augur", "Night Lord": "Maris, Fathom of Night", "Weakness": "Lightning", "Slash": 0.15, "Strike": -0.20, "Pierce": -0.10, "Magic": -0.20, "Fire": -0.50, "Lightning": 0.40, "Holy": -0.15, "Everdark": false },
+      { "Expedition": "Equilibrious Beast", "Night Lord": "Libra, Creature of Night", "Weakness": "Madness", "Slash": 0.10, "Magic": -0.20, "Fire": 0.20, "Holy": 0.35, "Everdark": false },
+      { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor, Champion of Nightglow", "Weakness": "Lightning", "Lightning": 0.20, "Holy": -0.30, "Everdark": false },
+      { "Expedition": "Fissure in the Fog", "Night Lord": "Caligo, Miasma of Night", "Weakness": "Fire", "Slash": -0.15, "Strike": 0.15, "Pierce": -0.10, "Magic": -0.20, "Fire": 0.35, "Lightning": -0.20, "Holy": -0.20, "Everdark": false },
+      { "Expedition": "Night Aspect", "Night Lord": "The Shape of Night", "Weakness": "Holy", "Slash": 0.15, "Strike": -0.10, "Pierce": 0.10, "Fire": 0.20, "Holy": 0.35, "Everdark": false },
+      { "Expedition": "Night Aspect", "Night Lord": "Heolstor the Nightlord", "Weakness": "Fire", "Slash": -0.10, "Strike": 0.10, "Pierce": 0.15, "Fire": 0.20, "Holy": 0.20, "Everdark": false },
+      { "Expedition": "Gaping Jaw", "Night Lord": "Adel, Baron of Night", "Weakness": "Poison", "Fire": -0.2, "Lightning": -0.5, "Everdark": true },
+      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Moth)", "Weakness": "Fire", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10, "Everdark": true },
+      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Shears)", "Weakness": "Fire", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10, "Everdark": true },
+      { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor, Champion of Nightglow", "Weakness": "Lightning", "Lightning": 0.20, "Holy": -0.30, "Everdark": true }
+    ];
+
+    const normalizeName = name => name.toLowerCase().replace(/\s*\(.*?\)/g, '').replace(/[^a-z0-9]/g, '').replace(/-+/g, '').replace(/^-|-$/g, '');
+
+    const effectiveKeys = ["Standard", "Slash", "Strike", "Pierce", "Magic", "Fire", "Lightning", "Holy", "Poison", "Rot", "Bleed", "Frostbite", "Sleep", "Madness"];
 
     const expeditionListEl = document.getElementById('expedition-list');
     const expeditionDetailsEl = document.getElementById('expedition-details');
+    const everdarkToggle = document.getElementById('everdark-toggle');
 
-    const effectiveKeys = [
-      "Standard", "Slash", "Strike", "Pierce", "Magic",
-      "Fire", "Lightning", "Holy", "Poison", "Rot",
-      "Bleed", "Frostbite", "Sleep", "Madness"
-    ];
+    everdarkToggle.addEventListener('change', renderExpeditions);
 
-    const expeditions = [...new Set(nightlordsData.map(e => e.Expedition))];
-    expeditions.forEach(exp => {
-      const nl = nightlordsData.find(e => e.Expedition === exp);
-      const imgName = normalizeName(exp);
-      const el = document.createElement('div');
-      el.className = 'phase-entry';
-      el.innerHTML = `<img class="expedition-icon" src="images/${imgName}.png" alt="${exp}"> ${exp}`;
-      el.onclick = () => {
-        const matches = nightlordsData.filter(e => e.Expedition === exp);
-        document.querySelectorAll('#expedition-list .phase-entry').forEach(e => e.classList.remove('active'));
-        el.classList.add('active');
+    function renderExpeditions() {
+      expeditionListEl.innerHTML = '';
+      expeditionDetailsEl.innerHTML = '';
+      const showEverdark = everdarkToggle.checked;
+      const filtered = nightlordsData.filter(e => e.Everdark === showEverdark);
+      const expeditions = [...new Set(filtered.map(e => e.Expedition))];
 
-        expeditionDetailsEl.innerHTML = '';
-        matches.forEach(nl => {
-          const box = document.createElement('div');
-          box.className = 'expedition-placeholder';
+      expeditions.forEach(exp => {
+        const el = document.createElement('div');
+        el.className = 'phase-entry';
+        const imgName = normalizeName(exp);
+        el.innerHTML = `<img class="expedition-icon" src="images/${imgName}.png" alt="${exp}"> ${exp}`;
+        el.onclick = () => {
+          const matches = filtered.filter(e => e.Expedition === exp);
+          document.querySelectorAll('#expedition-list .phase-entry').forEach(e => e.classList.remove('active'));
+          el.classList.add('active');
+          expeditionDetailsEl.innerHTML = '';
+          matches.forEach(nl => {
+            const box = document.createElement('div');
+            box.className = 'expedition-placeholder';
+            if (nl.Everdark) box.classList.add("everdark");
 
-          const expeditionImgName = normalizeName(nl["Expedition"]);
-          const name = document.createElement('div');
-          name.className = 'nightlord-name';
-          name.innerHTML = `<img src="images/${expeditionImgName}.png" class="nightlord-img" alt="${nl["Expedition"]}"> <strong>${nl["Night Lord"]}</strong>`;
-          box.appendChild(name);
+            const name = document.createElement('div');
+            name.className = 'nightlord-name';
+            const expImg = normalizeName(nl["Expedition"]);
+            name.innerHTML = `<img src="images/${expImg}.png" class="nightlord-img" alt="${nl["Expedition"]}"> <strong>${nl["Night Lord"]}</strong>`;
+            box.appendChild(name);
 
-          const weakness = document.createElement('p');
-          weakness.innerHTML = `<strong>Primary Weakness:</strong> ${nl.Weakness || '—'}`;
-          box.appendChild(weakness);
+            const weakness = document.createElement('p');
+            weakness.innerHTML = `<strong>Primary Weakness:</strong> ${nl.Weakness || '—'}`;
+            box.appendChild(weakness);
 
-          const effective = [], ineffective = [];
-          effectiveKeys.forEach(key => {
-            const val = parseFloat(nl[key]);
-            if (!isNaN(val)) {
-              const percent = `${(val * 100).toFixed(0)}%`;
-              const iconUrl = `images/${key.toLowerCase()}.png`;
-              const formatted = `<img src="${iconUrl}" class="icon" alt="${key}"> ${key} (${val > 0 ? '+' : ''}${percent})`;
-              if (val > 0) effective.push(formatted);
-              else if (val < 0) ineffective.push(formatted);
-            }
+            const effective = [], ineffective = [];
+            effectiveKeys.forEach(key => {
+              const val = parseFloat(nl[key]);
+              if (!isNaN(val)) {
+                const percent = `${(val * 100).toFixed(0)}%`;
+                const iconUrl = `images/${key.toLowerCase()}.png`;
+                const formatted = `<img src="${iconUrl}" class="icon" alt="${key}"> ${key} (${val > 0 ? '+' : ''}${percent})`;
+                if (val > 0) effective.push(formatted);
+                else if (val < 0) ineffective.push(formatted);
+              }
+            });
+
+            if (effective.length) box.innerHTML += `<p><span class="effective-label">Effective:</span> ${effective.join(', ')}</p>`;
+            if (ineffective.length) box.innerHTML += `<p><span class="ineffective-label">Ineffective:</span> ${ineffective.join(', ')}</p>`;
+
+            expeditionDetailsEl.appendChild(box);
           });
+        };
+        expeditionListEl.appendChild(el);
+      });
+    }
 
-          if (effective.length > 0) {
-            const eff = document.createElement('p');
-            eff.innerHTML = `<span class="effective-label">Effective:</span> ${effective.join(', ')}`;
-            box.appendChild(eff);
-          }
+    renderExpeditions();
 
-          if (ineffective.length > 0) {
-            const ineff = document.createElement('p');
-            ineff.innerHTML = `<span class="ineffective-label">Ineffective:</span> ${ineffective.join(', ')}`;
-            box.appendChild(ineff);
-          }
-
-          expeditionDetailsEl.appendChild(box);
-        });
-      };
-      expeditionListEl.appendChild(el);
-    });
-
+    // Timer Logic (unchanged)
     const phases = [
       { name: "Begin Run", duration: 270 },
       { name: "Day 1 Initial Storm Closure", duration: 180 },
@@ -257,16 +211,12 @@
       const phase = phases[currentPhaseIndex];
       renderPhaseList();
       currentPhaseEl.innerText = phase.name;
-
       if (phase.duration === 0) {
         timeLeft = 0;
         updateTimers();
-        if (currentPhaseIndex === 4 || currentPhaseIndex === 9) {
-          bossBtn.disabled = false;
-        }
+        if (currentPhaseIndex === 4 || currentPhaseIndex === 9) bossBtn.disabled = false;
         return;
       }
-
       timeLeft = phase.duration;
       updateTimers();
       interval = setInterval(() => {
@@ -276,9 +226,7 @@
           clearInterval(interval);
           interval = null;
           currentPhaseIndex++;
-          if (currentPhaseIndex < phases.length) {
-            startPhase();
-          }
+          if (currentPhaseIndex < phases.length) startPhase();
         }
       }, 1000);
     }
@@ -310,6 +258,48 @@
     }
 
     renderPhaseList();
+
+    async function loadBossChecklist() {
+      const container = document.getElementById("boss-container");
+      try {
+        const res = await fetch("bosses.json");
+        const data = await res.json();
+        container.innerHTML = "";
+        Object.entries(data).forEach(([category, bosses]) => {
+          const section = document.createElement("details");
+          section.className = "boss-category";
+          const summary = document.createElement("summary");
+          summary.textContent = category;
+          section.appendChild(summary);
+          const list = document.createElement("div");
+          list.className = "boss-list";
+          bosses.forEach(boss => {
+            const id = `boss-${category.toLowerCase().replace(/\s+/g, '-')}-${boss.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+            const label = document.createElement("label");
+            label.className = "boss-entry";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = id;
+            checkbox.checked = localStorage.getItem(id) === "true";
+            checkbox.onchange = () => {
+              localStorage.setItem(id, checkbox.checked);
+            };
+            const span = document.createElement("span");
+            span.textContent = boss;
+            label.appendChild(checkbox);
+            label.appendChild(span);
+            list.appendChild(label);
+          });
+          section.appendChild(list);
+          container.appendChild(section);
+        });
+      } catch (err) {
+        container.innerHTML = "<p>Failed to load boss data.</p>";
+        console.error("Error loading bosses.json:", err);
+      }
+    }
+
+    loadBossChecklist();
   </script>
 </body>
 </html>
