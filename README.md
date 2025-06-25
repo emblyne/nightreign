@@ -12,3 +12,15 @@ Shows current run time and status.
 - Boss Checklist:
 
 Shows checklist to allow for 100% completion.
+
+- Version History
+
+1.0 Added Expedition Data & Timer
+
+1.1 Added Checklist against bosses.json that persists upon reload via localstorage
+
+- Upcoming Features
+
+Remembrance Progress that persists upon reload via localstorage
+
+Manual Export / Import of All Progress
