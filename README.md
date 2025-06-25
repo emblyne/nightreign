@@ -15,11 +15,7 @@ Shows checklist to allow for 100% completion.
 
 - Version History:
 
-1.0 Added Expedition Data & Timer
-
-1.1 Added Checklist against bosses.json that persists upon reload via localStorage
-
-1.2 Added Images for Bosses & Damage Types, as well as options for the Everdark Sovereigns.
+1.0 Base Functions
 
 - Upcoming Features:
 
