@@ -17,11 +17,11 @@ Shows checklist to allow for 100% completion.
 
 1.0 Added Expedition Data & Timer
 
-1.1 Added Checklist against bosses.json that persists upon reload via localstorage
+1.1 Added Checklist against bosses.json that persists upon reload via localStorage
 
 - Upcoming Features
 
-Remembrance Progress that persists upon reload via localstorage
+Remembrance Progress that persists upon reload via localStorage
 
 Manual Export / Import of All Progress
 
