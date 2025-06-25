@@ -13,7 +13,7 @@ Shows current run time and status.
 
 Shows checklist to allow for 100% completion.
 
-- Version History
+- Version History:
 
 1.0 Added Expedition Data & Timer
 
@@ -21,7 +21,7 @@ Shows checklist to allow for 100% completion.
 
 1.2 Added Images for Bosses & Damage Types, as well as options for the Everdark Sovereigns.
 
-- Upcoming Features
+- Upcoming Features:
 
 Remembrance Progress that persists upon reload via localStorage
 
