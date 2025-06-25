@@ -1,5 +1,5 @@
 body {
-  background-image: url('bg.png');
+  background-image: url('/images/bg.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -271,4 +271,11 @@ button:disabled {
 
 .boss-entry span {
   cursor: default;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: text-bottom;
+  margin-right: 4px;
 }
