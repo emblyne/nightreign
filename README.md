@@ -24,3 +24,5 @@ Shows checklist to allow for 100% completion.
 Remembrance Progress that persists upon reload via localstorage
 
 Manual Export / Import of All Progress
+
+Embedded Images for Bosses & Damage Types
