@@ -19,7 +19,7 @@ Shows checklist to allow for 100% completion.
 
 1.1 Added Checklist against bosses.json that persists upon reload via localStorage
 
-1.2 Added Images for Bosses & Damage Types
+1.2 Added Images for Bosses & Damage Types, as well as options for the Everdark Sovereigns.
 
 - Upcoming Features
 
@@ -27,4 +27,3 @@ Remembrance Progress that persists upon reload via localStorage
 
 Manual Export / Import of All Progress
 
-Embedded Images for Bosses & Damage Types
