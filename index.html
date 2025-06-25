@@ -54,6 +54,13 @@
   </div>
 
   <script>
+    const normalizeName = (name) =>
+      name.toLowerCase()
+          .replace(/\s*\(.*?\)/g, '')
+          .replace(/[^a-z0-9]/g, '')
+          .replace(/-+/g, '')
+          .replace(/^-|-$/g, '');
+
     async function loadBossChecklist() {
       const container = document.getElementById("boss-container");
       try {
@@ -75,7 +82,6 @@
 
           bosses.forEach(boss => {
             const id = `boss-${category.toLowerCase().replace(/\s+/g, '-')}-${boss.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
-
             const label = document.createElement("label");
             label.className = "boss-entry";
 
@@ -107,17 +113,17 @@
     loadBossChecklist();
 
     const nightlordsData = [
-      { "Expedition": "Tricephalos", "Night Lord": "Gladius, Beast of Night", "Weakness": "Holy", "Fire": -0.5, "Pierce": 0.1, "Holy": 0.35 },
-      { "Expedition": "Gaping Jaw", "Night Lord": "Adel, Baron of Night", "Weakness": "Poison", "Fire": -0.2, "Lightning": -0.5 },
-      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Moth)", "Weakness": "Fire", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10 },
-      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Shears)", "Weakness": "Fire", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10 },
-      { "Expedition": "Augur", "Night Lord": "Maris, Fathom of Night", "Weakness": "Lightning", "Slash": 0.15, "Strike": -0.20, "Pierce": -0.10, "Magic": -0.20, "Fire": -0.50, "Lightning": 0.40, "Holy": -0.15 },
-      { "Expedition": "Equilibrious Beast", "Night Lord": "Libra, Creature of Night", "Weakness": "Madness", "Slash": 0.10, "Magic": -0.20, "Fire": 0.20, "Holy": 0.35 },
-      { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor, Champion of Nightglow", "Weakness": "Lightning", "Lightning": 0.20, "Holy": -0.30 },
-      { "Expedition": "Fissure in the Fog", "Night Lord": "Caligo, Miasma of Night", "Weakness": "Fire", "Slash": -0.15, "Strike": 0.15, "Pierce": -0.10, "Magic": -0.20, "Fire": 0.35, "Lightning": -0.20, "Holy": -0.20 },
-      { "Expedition": "Night Aspect", "Night Lord": "The Shape of Night", "Weakness": "Holy", "Slash": 0.15, "Strike": -0.10, "Pierce": 0.10, "Fire": 0.20, "Holy": 0.35 },
-      { "Expedition": "Night Aspect", "Night Lord": "Heolstor the Nightlord", "Weakness": "Fire", "Slash": -0.10, "Strike": 0.10, "Pierce": 0.15, "Fire": 0.20, "Holy": 0.20 }
-    ];
+  { "Expedition": "Tricephalos", "Night Lord": "Gladius, Beast of Night", "Weakness": "Holy", "Fire": -0.5, "Pierce": 0.1, "Holy": 0.35 },
+  { "Expedition": "Gaping Jaw", "Night Lord": "Adel, Baron of Night", "Weakness": "Poison", "Fire": -0.2, "Lightning": -0.5 },
+  { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Moth)", "Weakness": "Fire", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10 },
+  { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Shears)", "Weakness": "Fire", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10 },
+  { "Expedition": "Augur", "Night Lord": "Maris, Fathom of Night", "Weakness": "Lightning", "Slash": 0.15, "Strike": -0.20, "Pierce": -0.10, "Magic": -0.20, "Fire": -0.50, "Lightning": 0.40, "Holy": -0.15 },
+  { "Expedition": "Equilibrious Beast", "Night Lord": "Libra, Creature of Night", "Weakness": "Madness", "Slash": 0.10, "Magic": -0.20, "Fire": 0.20, "Holy": 0.35 },
+  { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor, Champion of Nightglow", "Weakness": "Lightning", "Lightning": 0.20, "Holy": -0.30 },
+  { "Expedition": "Fissure in the Fog", "Night Lord": "Caligo, Miasma of Night", "Weakness": "Fire", "Slash": -0.15, "Strike": 0.15, "Pierce": -0.10, "Magic": -0.20, "Fire": 0.35, "Lightning": -0.20, "Holy": -0.20 },
+  { "Expedition": "Night Aspect", "Night Lord": "The Shape of Night", "Weakness": "Holy", "Slash": 0.15, "Strike": -0.10, "Pierce": 0.10, "Fire": 0.20, "Holy": 0.35 },
+  { "Expedition": "Night Aspect", "Night Lord": "Heolstor the Nightlord", "Weakness": "Fire", "Slash": -0.10, "Strike": 0.10, "Pierce": 0.15, "Fire": 0.20, "Holy": 0.20 }
+];;
 
     const expeditionListEl = document.getElementById('expedition-list');
     const expeditionDetailsEl = document.getElementById('expedition-details');
@@ -130,9 +136,11 @@
 
     const expeditions = [...new Set(nightlordsData.map(e => e.Expedition))];
     expeditions.forEach(exp => {
+      const nl = nightlordsData.find(e => e.Expedition === exp);
+      const imgName = normalizeName(exp);
       const el = document.createElement('div');
       el.className = 'phase-entry';
-      el.innerText = exp;
+      el.innerHTML = `<img class="expedition-icon" src="images/${imgName}.png" alt="${exp}"> ${exp}`;
       el.onclick = () => {
         const matches = nightlordsData.filter(e => e.Expedition === exp);
         document.querySelectorAll('#expedition-list .phase-entry').forEach(e => e.classList.remove('active'));
@@ -143,9 +151,10 @@
           const box = document.createElement('div');
           box.className = 'expedition-placeholder';
 
+          const expeditionImgName = normalizeName(nl["Expedition"]);
           const name = document.createElement('div');
           name.className = 'nightlord-name';
-          name.innerHTML = `<strong>${nl["Night Lord"]}</strong>`;
+          name.innerHTML = `<img src="images/${expeditionImgName}.png" class="nightlord-img" alt="${nl["Expedition"]}"> <strong>${nl["Night Lord"]}</strong>`;
           box.appendChild(name);
 
           const weakness = document.createElement('p');
@@ -219,7 +228,6 @@
 
     function renderPhaseList() {
       phaseGroupEls.forEach(group => group.innerHTML = '');
-
       phases.forEach((p, index) => {
         const el = document.createElement("div");
         el.className = "phase-entry";
@@ -227,7 +235,6 @@
         if (index === currentPhaseIndex) el.classList.add("active");
         if (index < currentPhaseIndex) el.classList.add("complete");
         el.onclick = () => jumpToPhase(index);
-
         if (index <= 3) phaseGroupEls[0].appendChild(el);
         else if (index === 4) phaseGroupEls[1].appendChild(el);
         else if (index >= 5 && index <= 8) phaseGroupEls[2].appendChild(el);

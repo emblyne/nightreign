@@ -279,3 +279,19 @@ button:disabled {
   vertical-align: text-bottom;
   margin-right: 4px;
 }
+
+.expedition-icon {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.nightlord-img {
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  margin-right: 8px;
+  border-radius: 4px;
+}
