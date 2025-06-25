@@ -19,6 +19,8 @@ Shows checklist to allow for 100% completion.
 
 1.1 Added Checklist against bosses.json that persists upon reload via localStorage
 
+1.2 Added Images for Bosses & Damage Types
+
 - Upcoming Features
 
 Remembrance Progress that persists upon reload via localStorage
