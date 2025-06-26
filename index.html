@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Emblyne's Nightreign Companion</h1>
-  <p>Last Updated 6.26.25</p>
+  <p>Last Updated 6.25.25</p>
 
   <div id="page-layout">
     <!-- Expedition Selection -->
@@ -365,7 +365,10 @@ if (nl.Resistances) {
   resPara.innerHTML = `<strong>Resistances:</strong> ` + 
     Object.entries(nl.Resistances).map(([type, val]) => {
       const iconUrl = `images/${type.toLowerCase()}.png`;
-      return `<img src="${iconUrl}" class="icon" alt="${type}"> ${type} (${val})`;
+      let colorClass = "resist-low";
+      if (val >= 500) colorClass = "resist-high";
+      else if (val >= 200) colorClass = "resist-mid";
+      return `<img src="${iconUrl}" class="icon" alt="${type}"> ${type} (<span class="${colorClass}">${val}</span>)`;
     }).join(", ");
   box.appendChild(resPara);
 }

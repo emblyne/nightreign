@@ -365,3 +365,18 @@ input:checked + .slider:before {
   50% { background-color: #3d0052; }
   100% { background-color: #290037; }
 }
+
+.resist-low {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.resist-mid {
+  color: #f1c40f;
+  font-weight: bold;
+}
+
+.resist-high {
+  color: #ff5555;
+  font-weight: bold;
+}
