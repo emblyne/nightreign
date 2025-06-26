@@ -380,3 +380,33 @@ input:checked + .slider:before {
   color: #ff5555;
   font-weight: bold;
 }
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.effect-tag, .ineffect-tag, .resist-tag {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.effect-tag {
+  border-left: 4px solid #00ff88;
+}
+
+.ineffect-tag {
+  border-left: 4px solid #ff6666;
+}
+
+.resist-tag {
+  border-left: 4px solid #ada06c;
+}

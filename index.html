@@ -349,31 +349,72 @@
             box.appendChild(weakness);
 
             const effective = [], ineffective = [];
-            effectiveKeys.forEach(key => {
-              const val = parseFloat(nl[key]);
-              if (!isNaN(val)) {
-                const percent = `${(val * 100).toFixed(0)}%`;
-                const iconUrl = `images/${key.toLowerCase()}.png`;
-                const formatted = `<img src="${iconUrl}" class="icon" alt="${key}"> ${key} (${val > 0 ? '+' : ''}${percent})`;
-                if (val > 0) effective.push(formatted);
-                else if (val < 0) ineffective.push(formatted);
-              }
-            });
+const sortable = [];
 
-            if (effective.length) box.innerHTML += `<p><span class="effective-label">Effective:</span> ${effective.join(', ')}</p>`;
-            if (ineffective.length) box.innerHTML += `<p><span class="ineffective-label">Ineffective:</span> ${ineffective.join(', ')}</p>`;
+effectiveKeys.forEach(key => {
+  const val = parseFloat(nl[key]);
+  if (!isNaN(val)) {
+    sortable.push({ key, val });
+  }
+});
+
+const sorted = sortable.sort((a, b) => b.val - a.val);
+sorted.forEach(({ key, val }) => {
+  const percent = `${(val * 100).toFixed(0)}%`;
+  const iconUrl = `images/${key.toLowerCase()}.png`;
+  const formatted = `<img src="${iconUrl}" class="icon" alt="${key}"> ${key} (${val > 0 ? '+' : ''}${percent})`;
+  if (val > 0) effective.push(formatted);
+  else if (val < 0) ineffective.push(formatted);
+});
+
+            if (effective.length) {
+  const effDiv = document.createElement('div');
+  effDiv.innerHTML = `<span class='effective-label'>Effective:</span>`;
+  const effGroup = document.createElement('div');
+  effGroup.className = 'tag-group';
+  effective.forEach(html => {
+    const tag = document.createElement('div');
+    tag.className = 'effect-tag';
+    tag.innerHTML = html;
+    effGroup.appendChild(tag);
+  });
+  effDiv.appendChild(effGroup);
+  box.appendChild(effDiv);
+}
+            if (ineffective.length) {
+  const ineffDiv = document.createElement('div');
+  ineffDiv.innerHTML = `<span class='ineffective-label'>Ineffective:</span>`;
+  const ineffGroup = document.createElement('div');
+  ineffGroup.className = 'tag-group';
+  ineffective.forEach(html => {
+    const tag = document.createElement('div');
+    tag.className = 'ineffect-tag';
+    tag.innerHTML = html;
+    ineffGroup.appendChild(tag);
+  });
+  ineffDiv.appendChild(ineffGroup);
+  box.appendChild(ineffDiv);
+}
 
             
 if (nl.Resistances) {
+  const resGroup = document.createElement('div');
+  resGroup.className = 'tag-group';
+  const sortedResistances = Object.entries(nl.Resistances)
+    .sort((a, b) => a[1] - b[1]);  // Ascending order
+  sortedResistances.forEach(([type, val]) => {
+    const iconUrl = `images/${type.toLowerCase()}.png`;
+    let colorClass = "resist-low";
+    if (val >= 500) colorClass = "resist-high";
+    else if (val >= 200) colorClass = "resist-mid";
+    const tag = document.createElement('div');
+    tag.className = 'resist-tag';
+    tag.innerHTML = `<img src="${iconUrl}" class="icon" alt="${type}"> ${type} (<span class="${colorClass}">${val}</span>)`;
+    resGroup.appendChild(tag);
+  });
   const resPara = document.createElement("p");
-  resPara.innerHTML = `<strong>Resistances:</strong> ` + 
-    Object.entries(nl.Resistances).map(([type, val]) => {
-      const iconUrl = `images/${type.toLowerCase()}.png`;
-      let colorClass = "resist-low";
-      if (val >= 500) colorClass = "resist-high";
-      else if (val >= 200) colorClass = "resist-mid";
-      return `<img src="${iconUrl}" class="icon" alt="${type}"> ${type} (<span class="${colorClass}">${val}</span>)`;
-    }).join(", ");
+  resPara.innerHTML = `<strong>Resistances:</strong>`;
+  resPara.appendChild(resGroup);
   box.appendChild(resPara);
 }
 
