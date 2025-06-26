@@ -12,7 +12,13 @@
   <div id="page-layout">
     <!-- Expedition Selection -->
     <div id="expedition-ui">
-      <h2>Expedition Selection</h2>
+      
+<div class="section-header">
+  <h2>Expedition Selection</h2>
+  <label class="switch"><input type="checkbox" checked onchange="toggleSection('expedition-ui', this)"><span class="slider"></span></label>
+</div>
+<div class="section-content">
+
       <div class="switch-wrapper">
         <span class="switch-label">Everdark Sovereigns</span>
         <label class="switch">
@@ -24,11 +30,17 @@
         <div id="expedition-list"></div>
         <div id="expedition-details"></div>
       </div>
-    </div>
+    </div></div>
 
     <!-- Storm Timer -->
     <div id="storm-timer">
-      <h2>Expedition Clock</h2>
+      
+<div class="section-header">
+  <h2>Expedition Clock</h2>
+  <label class="switch"><input type="checkbox" checked onchange="toggleSection('storm-timer', this)"><span class="slider"></span></label>
+</div>
+<div class="section-content">
+
       <div id="timer-container">
         <div id="left-ui">
           <p id="current-phase">Ready</p>
@@ -49,16 +61,25 @@
           <p id="time-remaining" class="big-timer">--:--</p>
         </div>
       </div>
-    </div>
+    </div></div>
 
     <!-- Boss Checklist -->
     <div id="boss-checklist">
-      <h2>Boss Checklist (For 100% Completion)</h2>
-      <div id="boss-container">
+      
+<div class="section-header">
+  <h2>Boss Checklist (For 100% Completion)</h2>
+  <label class="switch"><input type="checkbox" checked onchange="toggleSection('boss-checklist', this)"><span class="slider"></span></label>
+</div>
+<div class="section-content">
+
+      
+<input type="text" id="boss-search" placeholder="Search bosses..." oninput="filterBosses()" style="margin-bottom: 16px; padding: 8px; font-size: 16px; width: 100%; max-width: 600px;">
+
+<div id="boss-container">
         <p>Loading boss list...</p>
       </div>
     </div>
-  </div>
+  </div></div>
 
   <script>
     const nightlordsData = [
@@ -583,6 +604,39 @@ if (nl.Resistances) {
     }
 
     loadBossChecklist();
-  </script>
+  
+function toggleSection(id, checkbox) {
+  const section = document.getElementById(id);
+  const content = section.querySelector('.section-content');
+  if (checkbox.checked) {
+    content.style.display = '';
+  } else {
+    content.style.display = 'none';
+  }
+}
+
+function filterBosses() {
+  const query = document.getElementById("boss-search").value.toLowerCase();
+  const sections = document.querySelectorAll(".boss-category");
+
+  sections.forEach(section => {
+    let visibleBosses = 0;
+    const entries = section.querySelectorAll(".boss-entry");
+    entries.forEach(entry => {
+      const name = entry.textContent.toLowerCase();
+      if (name.includes(query)) {
+        entry.style.display = "";
+        visibleBosses++;
+      } else {
+        entry.style.display = "none";
+      }
+    });
+
+    // Show/hide entire section based on result, and toggle "open"
+    section.style.display = visibleBosses > 0 ? "" : "none";
+    section.open = visibleBosses > 0 && query.length > 0;
+  });
+}
+</script>
 </body>
 </html>
