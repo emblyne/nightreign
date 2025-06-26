@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Emblyne's Nightreign Companion</h1>
-  <p>Last Updated 6.25.25</p>
+  <p>Last Updated 6.26.25</p>
 
   <div id="page-layout">
     <!-- Expedition Selection -->
@@ -62,21 +62,245 @@
 
   <script>
     const nightlordsData = [
-      { "Expedition": "Tricephalos", "Night Lord": "Gladius, Beast of Night", "Weakness": "Holy", "Fire": -0.5, "Pierce": 0.1, "Holy": 0.35, "Everdark": false },
-      { "Expedition": "Gaping Jaw", "Night Lord": "Adel, Baron of Night", "Weakness": "Poison", "Fire": -0.2, "Lightning": -0.5, "Everdark": false },
-      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Moth)", "Weakness": "Fire", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10, "Everdark": false },
-      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Shears)", "Weakness": "Fire", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10, "Everdark": false },
-      { "Expedition": "Augur", "Night Lord": "Maris, Fathom of Night", "Weakness": "Lightning", "Slash": 0.15, "Strike": -0.20, "Pierce": -0.10, "Magic": -0.20, "Fire": -0.50, "Lightning": 0.40, "Holy": -0.15, "Everdark": false },
-      { "Expedition": "Equilibrious Beast", "Night Lord": "Libra, Creature of Night", "Weakness": "Madness", "Slash": 0.10, "Magic": -0.20, "Fire": 0.20, "Holy": 0.35, "Everdark": false },
-      { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor, Champion of Nightglow", "Weakness": "Lightning", "Lightning": 0.20, "Holy": -0.30, "Everdark": false },
-      { "Expedition": "Fissure in the Fog", "Night Lord": "Caligo, Miasma of Night", "Weakness": "Fire", "Slash": -0.15, "Strike": 0.15, "Pierce": -0.10, "Magic": -0.20, "Fire": 0.35, "Lightning": -0.20, "Holy": -0.20, "Everdark": false },
-      { "Expedition": "Night Aspect", "Night Lord": "The Shape of Night", "Weakness": "Holy", "Slash": 0.15, "Strike": -0.10, "Pierce": 0.10, "Fire": 0.20, "Holy": 0.35, "Everdark": false },
-      { "Expedition": "Night Aspect", "Night Lord": "Heolstor the Nightlord", "Weakness": "Fire", "Slash": -0.10, "Strike": 0.10, "Pierce": 0.15, "Fire": 0.20, "Holy": 0.20, "Everdark": false },
-      { "Expedition": "Gaping Jaw", "Night Lord": "Adel, Baron of Night", "Weakness": "None (No Poison Stagger)", "Fire": -0.2, "Lightning": -0.5, "Everdark": true },
-      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Moth)", "Weakness": "Unknown (Not Released)", "Standard": 0.15, "Slash": 0.25, "Strike": 0.15, "Pierce": 0.25, "Magic": -0.50, "Fire": 0.40, "Lightning": -0.10, "Holy": -0.10, "Everdark": true },
-      { "Expedition": "Sentient Pest", "Night Lord": "Gnoster, Wisdom of Night (Shears)", "Weakness": "Unknown (Not Released)", "Standard": -0.10, "Slash": -0.20, "Strike": 0.20, "Pierce": 0.10, "Magic": -0.10, "Fire": 0.35, "Lightning": -0.10, "Holy": -0.10, "Everdark": true },
-      { "Expedition": "Darkdrift Knight", "Night Lord": "Fulghor, Champion of Nightglow", "Weakness": "Lightning", "Lightning": 0.20, "Holy": -0.30, "Everdark": true }
-    ];
+  {
+    "Expedition": "Tricephalos",
+    "Night Lord": "Gladius, Beast of Night",
+    "Weakness": "Holy",
+    "Fire": -0.5,
+    "Pierce": 0.1,
+    "Holy": 0.35,
+    "Everdark": false,
+    "Resistances": {
+      "Poison": 541,
+      "Rot": 252,
+      "Bleed": 252,
+      "Frostbite": 541,
+      "Sleep": 154
+    }
+  },
+  {
+    "Expedition": "Gaping Jaw",
+    "Night Lord": "Adel, Baron of Night",
+    "Weakness": "Poison",
+    "Fire": -0.2,
+    "Lightning": -0.5,
+    "Everdark": false,
+    "Resistances": {
+      "Poison": 154,
+      "Bleed": 541,
+      "Sleep": 154,
+      "Madness": 154
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Gnoster, Wisdom of Night (Moth)",
+    "Weakness": "Fire",
+    "Standard": 0.15,
+    "Slash": 0.25,
+    "Strike": 0.15,
+    "Pierce": 0.25,
+    "Magic": -0.5,
+    "Fire": 0.4,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Everdark": false,
+    "Resistances": {
+      "Poison": 541,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Madness": 541
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Gnoster, Wisdom of Night (Shears)",
+    "Weakness": "Fire",
+    "Standard": -0.1,
+    "Slash": -0.2,
+    "Strike": 0.2,
+    "Pierce": 0.1,
+    "Magic": -0.1,
+    "Fire": 0.35,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Everdark": false,
+    "Resistances": {
+      "Poison": 252,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154
+    }
+  },
+  {
+    "Expedition": "Augur",
+    "Night Lord": "Maris, Fathom of Night",
+    "Weakness": "Lightning",
+    "Slash": 0.15,
+    "Strike": -0.2,
+    "Pierce": -0.1,
+    "Magic": -0.2,
+    "Fire": -0.5,
+    "Lightning": 0.4,
+    "Holy": -0.15,
+    "Everdark": false,
+    "Resistances": {
+      "Rot": 252,
+      "Frostbite": 252
+    }
+  },
+  {
+    "Expedition": "Equilibrious Beast",
+    "Night Lord": "Libra, Creature of Night",
+    "Weakness": "Madness",
+    "Slash": 0.1,
+    "Magic": -0.2,
+    "Fire": 0.2,
+    "Holy": 0.35,
+    "Everdark": false,
+    "Resistances": {
+      "Poison": 154,
+      "Rot": 154,
+      "Bleed": 252,
+      "Frostbite": 252,
+      "Madness": 154
+    }
+  },
+  {
+    "Expedition": "Darkdrift Knight",
+    "Night Lord": "Fulghor, Champion of Nightglow",
+    "Weakness": "Lightning",
+    "Lightning": 0.2,
+    "Holy": -0.3,
+    "Everdark": false,
+    "Resistances": {
+      "Poison": 154,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154
+    }
+  },
+  {
+    "Expedition": "Fissure in the Fog",
+    "Night Lord": "Caligo, Miasma of Night",
+    "Weakness": "Fire",
+    "Slash": -0.15,
+    "Strike": 0.15,
+    "Pierce": -0.1,
+    "Magic": -0.2,
+    "Fire": 0.35,
+    "Lightning": -0.2,
+    "Holy": -0.2,
+    "Everdark": false,
+    "Resistances": {
+      "Poison": 252,
+      "Rot": 252,
+      "Bleed": 252,
+      "Frostbite": 541,
+      "Sleep": 541
+    }
+  },
+  {
+    "Expedition": "Night Aspect",
+    "Night Lord": "The Shape of Night",
+    "Weakness": "Holy",
+    "Slash": 0.15,
+    "Strike": -0.1,
+    "Pierce": 0.1,
+    "Fire": 0.2,
+    "Holy": 0.35,
+    "Everdark": false,
+    "Resistances": {
+      "Rot": 252,
+      "Sleep": 541
+    }
+  },
+  {
+    "Expedition": "Night Aspect",
+    "Night Lord": "Heolstor the Nightlord",
+    "Weakness": "Fire",
+    "Slash": -0.1,
+    "Strike": 0.1,
+    "Pierce": 0.15,
+    "Fire": 0.2,
+    "Holy": 0.2,
+    "Everdark": false
+  },
+  {
+    "Expedition": "Gaping Jaw",
+    "Night Lord": "Adel, Baron of Night",
+    "Weakness": "None (No Poison Stagger)",
+    "Fire": -0.2,
+    "Lightning": -0.5,
+    "Everdark": true,
+    "Resistances": {
+      "Poison": 154,
+      "Bleed": 541,
+      "Sleep": 154,
+      "Madness": 154
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Gnoster, Wisdom of Night (Moth)",
+    "Weakness": "Unknown (Not Released)",
+    "Standard": 0.15,
+    "Slash": 0.25,
+    "Strike": 0.15,
+    "Pierce": 0.25,
+    "Magic": -0.5,
+    "Fire": 0.4,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Everdark": true,
+    "Resistances": {
+      "Poison": 541,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Madness": 541
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Gnoster, Wisdom of Night (Shears)",
+    "Weakness": "Unknown (Not Released)",
+    "Standard": -0.1,
+    "Slash": -0.2,
+    "Strike": 0.2,
+    "Pierce": 0.1,
+    "Magic": -0.1,
+    "Fire": 0.35,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Everdark": true,
+    "Resistances": {
+      "Poison": 252,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154
+    }
+  },
+  {
+    "Expedition": "Darkdrift Knight",
+    "Night Lord": "Fulghor, Champion of Nightglow",
+    "Weakness": "Lightning",
+    "Lightning": 0.2,
+    "Holy": -0.3,
+    "Everdark": true,
+    "Resistances": {
+      "Poison": 154,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154
+    }
+  }
+];
 
     const normalizeName = name => name.toLowerCase().replace(/\s*\(.*?\)/g, '').replace(/[^a-z0-9]/g, '').replace(/-+/g, '').replace(/^-|-$/g, '');
 
@@ -134,6 +358,17 @@
 
             if (effective.length) box.innerHTML += `<p><span class="effective-label">Effective:</span> ${effective.join(', ')}</p>`;
             if (ineffective.length) box.innerHTML += `<p><span class="ineffective-label">Ineffective:</span> ${ineffective.join(', ')}</p>`;
+
+            
+if (nl.Resistances) {
+  const resPara = document.createElement("p");
+  resPara.innerHTML = `<strong>Resistances:</strong> ` + 
+    Object.entries(nl.Resistances).map(([type, val]) => {
+      const iconUrl = `images/${type.toLowerCase()}.png`;
+      return `<img src="${iconUrl}" class="icon" alt="${type}"> ${type} (${val})`;
+    }).join(", ");
+  box.appendChild(resPara);
+}
 
             expeditionDetailsEl.appendChild(box);
           });
