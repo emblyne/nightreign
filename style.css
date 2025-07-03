@@ -381,6 +381,11 @@ input:checked + .slider:before {
   font-weight: bold;
 }
 
+.resist-immune {
+  color: #ccc;
+  font-weight: bold;
+}
+
 .tag-group {
   display: flex;
   flex-wrap: wrap;
@@ -409,6 +414,10 @@ input:checked + .slider:before {
 
 .resist-tag {
   border-left: 4px solid #f1c40f;
+}
+
+.resist-tag.immune {
+  border-left: 4px solid #888;
 }
 
 .section-header {
@@ -529,3 +538,4 @@ input:checked + .slider:before {
   right: 0;
   transform: translateY(-50%);
 }
+

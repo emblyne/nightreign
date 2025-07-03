@@ -90,7 +90,9 @@
       "Rot": 252,
       "Bleed": 252,
       "Frostbite": 541,
-      "Sleep": 154
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -104,7 +106,10 @@
       "Poison": 154,
       "Bleed": 541,
       "Sleep": 154,
-      "Madness": 154
+      "Frostbite": 154,
+      "Rot": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -125,7 +130,9 @@
       "Rot": 154,
       "Bleed": 154,
       "Frostbite": 154,
-      "Madness": 541
+      "Sleep": 541,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -146,7 +153,9 @@
       "Rot": 154,
       "Bleed": 154,
       "Frostbite": 154,
-      "Sleep": 154
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -163,7 +172,12 @@
     "Holy": -0.15,
     "Resistances": {
       "Rot": 252,
-      "Frostbite": 252
+      "Frostbite": 252,
+      "Poison": "Immune",
+      "Bleed": "Immune",
+      "Sleep": "Immune",
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -180,7 +194,9 @@
       "Rot": 154,
       "Bleed": 252,
       "Frostbite": 252,
-      "Madness": 154
+      "Madness": 154,
+      "Sleep": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -195,7 +211,9 @@
       "Rot": 154,
       "Bleed": 154,
       "Frostbite": 154,
-      "Sleep": 154
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -215,7 +233,9 @@
       "Rot": 252,
       "Bleed": 252,
       "Frostbite": 541,
-      "Sleep": 541
+      "Sleep": 541,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -230,7 +250,12 @@
     "Holy": 0.35,
     "Resistances": {
       "Rot": 252,
-      "Sleep": 541
+      "Sleep": 541,
+      "Poison": "Immune",
+      "Bleed": "Immune",
+      "Frostbite": "Immune",
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -241,11 +266,16 @@
     "Slash": -0.1,
     "Strike": 0.1,
     "Pierce": 0.15,
-    "Fire": 0.2,
+    "Lightning": 0.2,
     "Holy": 0.2,
 	"Resistances": {
       "Rot": 252,
-      "Sleep": 541
+      "Sleep": 541,
+      "Poison": "Immune",
+      "Bleed": "Immune",
+      "Frostbite": "Immune",
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -257,9 +287,12 @@
     "Lightning": -0.5,
     "Resistances": {
       "Poison": 154,
+      "Rot": 154,
       "Bleed": 541,
+      "Frostbite": 154,
       "Sleep": 154,
-      "Madness": 154
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -280,7 +313,9 @@
       "Rot": 154,
       "Bleed": 154,
       "Frostbite": 154,
-      "Madness": 541
+      "Sleep": 541,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -301,7 +336,9 @@
       "Rot": 154,
       "Bleed": 154,
       "Frostbite": 154,
-      "Sleep": 154
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -322,7 +359,9 @@
       "Rot": 154,
       "Bleed": 154,
       "Frostbite": 154,
-      "Sleep": 542
+      "Sleep": 542,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   },
   {
@@ -337,7 +376,9 @@
       "Rot": 154,
       "Bleed": 154,
       "Frostbite": 154,
-      "Sleep": 154
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
     }
   }
 ];
@@ -437,17 +478,36 @@ if (nl.Resistances) {
   const resGroup = document.createElement('div');
   resGroup.className = 'tag-group';
   const sortedResistances = Object.entries(nl.Resistances)
-    .sort((a, b) => a[1] - b[1]);  // Ascending order
+    .sort((a, b) => {
+      const aVal = a[1] === "Immune" ? Infinity : a[1];
+      const bVal = b[1] === "Immune" ? Infinity : b[1];
+      return aVal - bVal;
+    });
+
   sortedResistances.forEach(([type, val]) => {
     const iconUrl = `images/${type.toLowerCase()}.png`;
     let colorClass = "resist-low";
-    if (val >= 500) colorClass = "resist-high";
-    else if (val >= 200) colorClass = "resist-mid";
+    let immuneClass = "";
+    let valueHTML = "";
+
+    if (val === "Immune") {
+      colorClass = "resist-immune";
+      immuneClass = "immune";
+      valueHTML = "Immune";
+    } else {
+      val = parseInt(val);
+      if (val >= 500) colorClass = "resist-high";
+      else if (val >= 200) colorClass = "resist-mid";
+      else colorClass = "resist-low";
+      valueHTML = val;
+    }
+
     const tag = document.createElement('div');
-    tag.className = 'resist-tag';
-    tag.innerHTML = `<img src="${iconUrl}" class="icon" alt="${type}"> ${type} (<span class="${colorClass}">${val}</span>)`;
+    tag.className = `resist-tag ${immuneClass}`;
+    tag.innerHTML = `<img src="${iconUrl}" class="icon" alt="${type}"> ${type} (<span class="${colorClass}">${valueHTML}</span>)`;
     resGroup.appendChild(tag);
   });
+
   const resPara = document.createElement("p");
   resPara.innerHTML = `<strong>Resistances:</strong>`;
   resPara.appendChild(resGroup);
