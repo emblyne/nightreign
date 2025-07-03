@@ -1,23 +1,24 @@
 # nightreign
-Personal Companion for Elden Ring: Nightreign
+## Personal Companion for Elden Ring: Nightreign
+### <ins>Expedition Selection</ins>
 
-- Expedition Selection:
+All current expeditions are available to select, including the rotating Everdark Soveriegns.
 
-Shows primary weaknesses, effective options, and ineffective options against the Nightlord.
+Shows primary weaknesses, effective and ineffective damage types, and ailment resistance data for each Nightlord.
 
-- Expedition Timer:
+### <ins>Expedition Timer</ins>
 
-Shows current run time and status.
+Shows remaining time in each stage of the Night closure process, which accounts for the variable time in the Night 2 Boss Fight.
 
-- Boss Checklist:
+### <ins>Boss Checklist</ins>
 
-Shows checklist to allow for 100% completion.
+Shows checklist are available bosses to allow for 100% completion tracking.
 
-- Version History:
+### <ins>Version History</ins>
 
 1.0 Base Functions
 
-- Upcoming Features:
+### <ins>Upcoming Features</ins>
 
 Remembrance Progress that persists upon reload via localStorage
 
