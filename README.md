@@ -14,10 +14,6 @@ Shows remaining time in each stage of the Night closure process, which accounts 
 
 Shows checklist are available bosses to allow for 100% completion tracking.
 
-### <ins>Version History</ins>
-
-1.0 Base Functions
-
 ### <ins>Upcoming Features</ins>
 
 Remembrance Progress that persists upon reload via localStorage
