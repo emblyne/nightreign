@@ -1,0 +1,306 @@
+[
+  {
+    "Expedition": "Tricephalos",
+    "Night Lord": "Gladius, Beast of Night",
+	  "Everdark": false,
+    "Weakness": "Holy",
+    "Fire": -0.5,
+    "Pierce": 0.1,
+    "Holy": 0.35,
+    "Resistances": {
+      "Poison": 541,
+      "Rot": 252,
+      "Bleed": 252,
+      "Frostbite": 541,
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Gaping Jaw",
+    "Night Lord": "Adel, Baron of Night",
+	  "Everdark": false,
+    "Weakness": "Poison",
+    "Fire": -0.2,
+    "Lightning": -0.5,
+    "Resistances": {
+      "Poison": 154,
+      "Bleed": 541,
+      "Sleep": 154,
+      "Frostbite": 154,
+      "Rot": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Gnoster, Wisdom of Night",
+	  "Everdark": false,
+    "Weakness": "Fire",
+    "Standard": 0.15,
+    "Slash": 0.25,
+    "Strike": 0.15,
+    "Pierce": 0.25,
+    "Magic": -0.5,
+    "Fire": 0.4,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Resistances": {
+      "Poison": 541,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 541,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Faurtis Stoneshield",
+	  "Everdark": false,
+    "Weakness": "Fire",
+    "Standard": -0.1,
+    "Slash": -0.2,
+    "Strike": 0.2,
+    "Pierce": 0.1,
+    "Magic": -0.1,
+    "Fire": 0.35,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Resistances": {
+      "Poison": 252,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Augur",
+    "Night Lord": "Maris, Fathom of Night",
+	  "Everdark": false,
+    "Weakness": "Lightning",
+    "Slash": 0.15,
+    "Strike": -0.2,
+    "Pierce": -0.1,
+    "Magic": -0.2,
+    "Fire": -0.5,
+    "Lightning": 0.4,
+    "Holy": -0.15,
+    "Resistances": {
+      "Rot": 252,
+      "Frostbite": 252,
+      "Poison": "Immune",
+      "Bleed": "Immune",
+      "Sleep": "Immune",
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Equilibrious Beast",
+    "Night Lord": "Libra, Creature of Night",
+	  "Everdark": false,
+    "Weakness": "Madness",
+    "Slash": 0.1,
+    "Magic": -0.2,
+    "Fire": 0.2,
+    "Holy": 0.35,
+    "Resistances": {
+      "Poison": 154,
+      "Rot": 154,
+      "Bleed": 252,
+      "Frostbite": 252,
+      "Madness": 154,
+      "Sleep": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Darkdrift Knight",
+    "Night Lord": "Fulghor, Champion of Nightglow",
+	  "Everdark": false,
+    "Weakness": "Lightning",
+    "Lightning": 0.2,
+    "Holy": -0.3,
+    "Resistances": {
+      "Poison": 154,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Fissure in the Fog",
+    "Night Lord": "Caligo, Miasma of Night",
+	  "Everdark": false,
+    "Weakness": "Fire",
+    "Slash": -0.15,
+    "Strike": 0.15,
+    "Pierce": -0.1,
+    "Magic": -0.2,
+    "Fire": 0.35,
+    "Lightning": -0.2,
+    "Holy": -0.2,
+    "Resistances": {
+      "Poison": 252,
+      "Rot": 252,
+      "Bleed": 252,
+      "Frostbite": 541,
+      "Sleep": 541,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Night Aspect",
+    "Night Lord": "The Shape of Night",
+	  "Everdark": false,
+    "Weakness": "Holy",
+    "Slash": 0.15,
+    "Strike": -0.1,
+    "Pierce": 0.1,
+    "Fire": 0.2,
+    "Holy": 0.35,
+    "Resistances": {
+      "Rot": 252,
+      "Sleep": 541,
+      "Poison": "Immune",
+      "Bleed": "Immune",
+      "Frostbite": "Immune",
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Night Aspect",
+    "Night Lord": "Heolstor the Nightlord",
+	  "Everdark": false,
+    "Weakness": "Fire",
+    "Slash": -0.1,
+    "Strike": 0.1,
+    "Pierce": 0.15,
+    "Lightning": 0.2,
+    "Holy": 0.2,
+	"Resistances": {
+      "Rot": 252,
+      "Sleep": 541,
+      "Poison": "Immune",
+      "Bleed": "Immune",
+      "Frostbite": "Immune",
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Gaping Jaw",
+    "Night Lord": "Adel, Baron of Night",
+	  "Everdark": true,
+    "Weakness": "None (No Poison Stagger)",
+    "Fire": -0.2,
+    "Lightning": -0.5,
+    "Resistances": {
+      "Poison": 154,
+      "Rot": 154,
+      "Bleed": 541,
+      "Frostbite": 154,
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Gnoster, Wisdom of Night",
+	  "Everdark": true,
+    "Weakness": "Fire",
+    "Standard": 0.15,
+    "Slash": 0.25,
+    "Strike": 0.15,
+    "Pierce": 0.25,
+    "Magic": -0.5,
+    "Fire": 0.4,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Resistances": {
+      "Poison": 541,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 541,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Faurtis Stoneshield",
+	  "Everdark": true,
+    "Weakness": "Fire",
+    "Standard": -0.1,
+    "Slash": -0.2,
+    "Strike": 0.2,
+    "Pierce": 0.1,
+    "Magic": -0.1,
+    "Fire": 0.35,
+    "Lightning": -0.1,
+    "Holy": -0.1,
+    "Resistances": {
+      "Poison": 252,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Sentient Pest",
+    "Night Lord": "Animus, Ascendant Light",
+	  "Everdark": true,
+    "Weakness": "Unknown (Not Released)",
+    "Standard": 0.15,
+    "Slash": 0.25,
+    "Strike": 0.15,
+    "Pierce": 0.25,
+    "Magic": -0.50,
+    "Fire": 0.40,
+    "Lightning": -0.10,
+    "Holy": -0.10,
+    "Resistances": {
+      "Poison": 542,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 542,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  },
+  {
+    "Expedition": "Darkdrift Knight",
+    "Night Lord": "Fulghor, Champion of Nightglow",
+	  "Everdark": true,
+    "Weakness": "Lightning",
+    "Lightning": 0.2,
+    "Holy": -0.3,
+    "Resistances": {
+      "Poison": 154,
+      "Rot": 154,
+      "Bleed": 154,
+      "Frostbite": 154,
+      "Sleep": 154,
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
+  }
+]
