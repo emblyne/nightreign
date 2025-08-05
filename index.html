@@ -224,7 +224,7 @@ if (nl.Resistances) {
 
     renderExpeditions();
 
-    // Timer Logic (unchanged)
+    // Timer Logic
     const phases = [
       { name: "Begin Run", duration: 270 },
       { name: "Day 1 Initial Storm Closure", duration: 180 },
@@ -408,7 +408,7 @@ function filterBosses() {
       }
     });
 
-    // Show/hide entire section based on result, and toggle "open"
+    // Show/hide
     section.style.display = visibleBosses > 0 ? "" : "none";
     section.open = visibleBosses > 0 && query.length > 0;
   });
