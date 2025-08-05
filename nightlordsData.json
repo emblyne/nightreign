@@ -302,5 +302,27 @@
       "Madness": "Immune",
       "Deathblight": "Immune"
     }
+  },
+  {
+    "Expedition": "Augur",
+    "Night Lord": "Maris, Fathom of Night",
+	  "Everdark": true,
+    "Weakness": "Lightning",
+    "Slash": 0.15,
+    "Strike": -0.2,
+    "Pierce": -0.1,
+    "Magic": -0.2,
+    "Fire": -0.5,
+    "Lightning": 0.4,
+    "Holy": -0.15,
+    "Resistances": {
+      "Rot": 252,
+      "Frostbite": 252,
+      "Poison": "Immune",
+      "Bleed": "Immune",
+      "Sleep": "Immune",
+      "Madness": "Immune",
+      "Deathblight": "Immune"
+    }
   }
 ]
