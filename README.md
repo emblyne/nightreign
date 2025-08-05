@@ -12,7 +12,7 @@ Shows remaining time in each stage of the Night closure process, which accounts 
 
 ### <ins>Boss Checklist</ins>
 
-Shows checklist are available bosses to allow for 100% completion tracking.
+Shows checklist for available bosses to allow for 100% completion tracking.
 
 ### <ins>Upcoming Features</ins>
 
